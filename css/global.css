@@ -232,6 +232,12 @@ p{ margin:0; }
    so keep the bar solid from the start on those pages */
 .navbar.is-solid{ background:var(--navy-900); }
 
+.brand-logo{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  flex-shrink:0;
+}
 .brand{
   display:flex;
   align-items:center;
