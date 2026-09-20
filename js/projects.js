@@ -27,8 +27,7 @@
       category: "Residential Construction",
       status: "completed",
       images: [
-        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1200&auto=format&fit=crop"
+        "images/completed-villa-01.png",
       ]
     },
     {
@@ -40,8 +39,7 @@
       category: "Residential Construction",
       status: "completed",
       images: [
-        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
+        "images/completed-individual-house-01.png",
       ]
     },
     {
@@ -53,8 +51,7 @@
       category: "Residential Construction",
       status: "ongoing",
       images: [
-        "https://images.unsplash.com/photo-1541976590-713941681591?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop"
+        "images/ongoing-project-01.png",
       ]
     }
   ];
