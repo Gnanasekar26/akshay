@@ -1,0 +1,194 @@
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+.about-main{
+  display:grid;
+  grid-template-columns:0.95fr 1.05fr;
+  gap:64px;
+  align-items:start;
+}
+.about-main-media img{
+  width:100%;
+  height:520px;
+  object-fit:cover;
+}
+.about-list{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px 24px;
+}
+.about-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:0.95rem;
+  color:var(--ink-soft);
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+.about-list li::before{
+  content:'';
+  width:8px; height:8px;
+  background:var(--gold);
+  margin-top:6px;
+  flex-shrink:0;
+}
+@media (max-width: 900px){
+  .about-main{ grid-template-columns:1fr; gap:36px; }
+  .about-main-media img{ height:340px; }
+  .about-list{ grid-template-columns:1fr; }
+}
+
+/* ---- Our Journey (vertical timeline) ---- */
+.journey-timeline{
+  position:relative;
+  max-width:900px;
+  margin:0 auto;
+  padding-left:36px;
+}
+.journey-timeline::before{
+  content:'';
+  position:absolute;
+  left:9px; top:6px; bottom:6px;
+  width:2px;
+  background:linear-gradient(to bottom, var(--gold), var(--line));
+}
+.journey-item{
+  position:relative;
+  padding-bottom:52px;
+}
+.journey-item:last-child{ padding-bottom:0; }
+.journey-dot{
+  position:absolute;
+  left:-36px; top:4px;
+  width:20px; height:20px;
+  border-radius:50%;
+  background:var(--navy-900);
+  border:3px solid var(--gold);
+}
+.journey-year{
+  display:inline-block;
+  background:var(--navy-900);
+  color:var(--gold-light);
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:0.85rem;
+  padding:6px 16px;
+  border-radius:30px;
+  margin-bottom:14px;
+}
+.journey-card{
+  background:#fff;
+  border-radius:20px;
+  padding:28px 30px;
+  box-shadow:0 14px 34px rgba(7,26,51,0.08);
+}
+.journey-label{
+  display:block;
+  font-family:var(--font-head);
+  font-size:0.72rem;
+  font-weight:700;
+  letter-spacing:0.06em;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+.journey-card h3{ margin-bottom:10px; }
+.journey-card p{ color:var(--ink-soft); font-size:0.94rem; }
+
+@media (min-width: 900px){
+  /* alternating layout on wide screens */
+  .journey-timeline{
+    padding-left:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .journey-timeline::before{ left:50%; transform:translateX(-50%); }
+  .journey-item{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 60px 1fr;
+    align-items:start;
+    gap:0 32px;
+  }
+  .journey-dot{ left:50%; top:4px; transform:translateX(-50%); }
+  .journey-item .journey-card-wrap{ grid-column:1; }
+  .journey-item.is-right .journey-card-wrap{ grid-column:3; }
+  .journey-item .journey-spacer{ grid-column:3; }
+  .journey-item.is-right .journey-spacer{ grid-column:1; }
+}
+
+/* ---- Mission / Vision ---- */
+.mv-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+}
+.mv-card{
+  padding:38px 34px;
+  background:#fff;
+  border-top:3px solid var(--gold);
+  box-shadow:0 10px 30px rgba(7,26,51,0.06);
+}
+.mv-card h2{ margin-bottom:14px; }
+.mv-card p{ color:var(--ink-soft); font-size:1rem; }
+@media (max-width: 760px){ .mv-grid{ grid-template-columns:1fr; } }
+
+/* ---- From Idea to Industry ---- */
+/* Deliberate 4 + 3 composition (7 steps): two row wrappers so the
+   bottom row's 3 cards center under the top row instead of the last
+   card being isolated alone with a large empty area beside it. */
+.idea-row{ display:grid; gap:22px; }
+.idea-row-top{ grid-template-columns:repeat(4, 1fr); }
+.idea-row-bottom{
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  max-width:75%;
+  margin:22px auto 0;
+}
+.idea-step{
+  text-align:left;
+  padding:32px;
+  background:#fff;
+  border:1px solid var(--line);
+  position:relative;
+  min-height:230px;
+}
+.idea-step .idea-num{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1.6rem;
+  color:var(--gold);
+  display:block;
+  margin-bottom:12px;
+}
+.idea-step h3{ font-size:0.98rem; margin-bottom:8px; }
+.idea-step p{ color:var(--ink-soft); font-size:0.85rem; }
+
+/* From Idea to Industry — tablet keeps 4/3 proportion at 2 columns
+   each so no card is ever isolated alone; mobile stacks one column. */
+@media (max-width: 1024px) and (min-width: 768px){
+  .idea-row-top{ grid-template-columns:repeat(2, 1fr); }
+  .idea-row-bottom{ grid-template-columns:repeat(2, 1fr); max-width:100%; }
+  .idea-row-bottom .idea-step:last-child{ grid-column:1 / -1; }
+}
+@media (max-width: 767px){
+  .idea-row-top, .idea-row-bottom{ grid-template-columns:1fr; max-width:100%; margin-top:16px; }
+  .idea-step{ min-height:auto; padding:26px 22px; }
+}
+
+/* Core Values — 3 + 2 centered composition, mirroring Why Choose Us. */
+.values-row{ display:grid; gap:44px 40px; }
+.values-row-top{ grid-template-columns:repeat(3, 1fr); }
+.values-row-bottom{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  max-width:66.6667%;
+  margin:44px auto 0;
+}
+@media (max-width: 1024px) and (min-width: 768px){
+  .values-row-bottom{ max-width:100%; }
+}
+@media (max-width: 767px){
+  .values-row-top, .values-row-bottom{ grid-template-columns:1fr; gap:18px; max-width:100%; margin-top:8px; }
+  .value-card{ padding:28px 24px; }
+}

@@ -1,0 +1,214 @@
+/* =========================================================
+   HOME PAGE
+   ========================================================= */
+
+/* ---- Hero ---- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(100deg, rgba(15,26,43,0.92) 0%, rgba(15,26,43,0.78) 42%, rgba(15,26,43,0.35) 78%),
+    url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+  color:#fff;
+  padding-top:var(--nav-h);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:40px;
+  align-items:end;
+  padding-bottom:64px;
+}
+
+.hero-copy{ max-width:640px; }
+.hero-copy h1{ color:#fff; margin-bottom:20px; }
+.hero-copy .lede{
+  font-size:1.1rem;
+  color:#D7DCE4;
+  max-width:520px;
+  margin-bottom:34px;
+}
+.hero .btn-row{ margin-bottom:38px; }
+
+.hero-price{
+  display:inline-flex;
+  align-items:baseline;
+  gap:10px;
+  padding:14px 20px;
+  border:1px solid rgba(255,255,255,0.25);
+  border-left:3px solid var(--gold);
+  background:rgba(15,26,43,0.4);
+  backdrop-filter:blur(2px);
+}
+.hero-price strong{
+  font-family:var(--font-head);
+  font-size:1.3rem;
+  color:var(--gold-light);
+}
+.hero-price span{ font-size:0.85rem; color:#C7CDD9; }
+
+.hero-stats{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border-left:1px solid rgba(255,255,255,0.2);
+  padding-left:36px;
+}
+.hero-stat{
+  padding:18px 0;
+  border-bottom:1px solid rgba(255,255,255,0.14);
+}
+.hero-stat:last-child{ border-bottom:none; }
+.hero-stat .num{
+  font-family:var(--font-head);
+  font-size:2rem;
+  color:var(--gold-light);
+  display:block;
+}
+.hero-stat .label{ font-size:0.85rem; color:#C7CDD9; }
+
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-stats{ border-left:none; padding-left:0; flex-direction:row; flex-wrap:wrap; gap:24px; }
+  .hero-stat{ border-bottom:none; padding:0; flex:1 1 160px; }
+}
+
+/* ---- About preview ---- */
+.about-preview{
+  display:grid;
+  grid-template-columns:0.95fr 1.05fr;
+  gap:64px;
+  align-items:center;
+}
+.about-preview-media{
+  position:relative;
+}
+.about-preview-media img{
+  width:100%;
+  height:420px;
+  object-fit:cover;
+}
+.about-preview-text p{
+  color:var(--ink-soft);
+  font-size:1.05rem;
+  margin-bottom:28px;
+}
+@media (max-width: 900px){
+  .about-preview{ grid-template-columns:1fr; gap:36px; }
+  .about-preview-media img{ height:300px; }
+}
+
+/* ---- Services preview grid ---- */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:26px;
+}
+.service-card{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--line);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.service-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(15,26,43,0.12);
+}
+.service-card-media{
+  height:190px;
+  overflow:hidden;
+}
+.service-card-media img{
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s ease;
+}
+.service-card:hover .service-card-media img{ transform:scale(1.06); }
+.service-card-body{ padding:24px; }
+.service-icon{
+  width:42px; height:42px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px;
+}
+.service-card-body h3{ margin-bottom:10px; }
+.service-card-body p{ color:var(--ink-soft); font-size:0.94rem; margin-bottom:16px; }
+.service-link{
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:0.85rem;
+  color:var(--navy-900);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.service-link .arrow{ transition:transform .25s ease; }
+.service-card:hover .service-link .arrow{ transform:translateX(4px); }
+
+@media (max-width: 960px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width: 620px){ .services-grid{ grid-template-columns:1fr; } }
+
+.section-foot{
+  margin-top:44px;
+  display:flex;
+  justify-content:center;
+}
+
+/* ---- Projects preview ---- */
+.projects-preview-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:26px;
+}
+@media (max-width: 960px){ .projects-preview-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width: 620px){ .projects-preview-grid{ grid-template-columns:1fr; } }
+
+/* ---- Why choose us ----
+   5 items as a deliberate 3 + 2 composition: two separate row
+   wrappers so the bottom row's 2 cards are centered and match the
+   top row's card width exactly — never a wide/stretched card. */
+.why-row{
+  display:grid;
+  gap:1px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.why-row-top{ grid-template-columns:repeat(3, 1fr); }
+.why-row-bottom{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  max-width:66.6667%;
+  margin:1px auto 0;
+}
+.why-card{
+  background:var(--navy-900);
+  padding:42px 36px;
+  min-height:230px;
+}
+.why-num{
+  font-family:var(--font-head);
+  font-size:0.85rem;
+  color:var(--gold-light);
+  border:1px solid var(--gold);
+  width:38px; height:38px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:22px;
+}
+.why-card h3{ color:#fff; margin-bottom:10px; font-size:1.1rem; }
+.why-card p{ color:#B9C0CC; font-size:0.92rem; }
+
+/* Tablet: keep 3 columns on top (narrower cards, never an isolated
+   lone card) with the bottom row centered proportionally the same. */
+@media (max-width: 1024px) and (min-width: 768px){
+  .why-card{ padding:34px 24px; }
+}
+
+/* Mobile: single column, purpose-built — not a squeezed desktop grid. */
+@media (max-width: 767px){
+  .why-row-top, .why-row-bottom{ grid-template-columns:1fr; max-width:100%; }
+  .why-card{ width:100%; min-height:auto; height:auto; padding:30px 24px; }
+}
+
+
