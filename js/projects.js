@@ -44,6 +44,18 @@
     },
     {
       id: 3,
+      client: "Mr. Srinivasan",
+      title: "Mr. Srinivasan Residence",
+      location: "Guindy, Chennai",
+      address: "",
+      category: "Residential Construction",
+      status: "completed",
+      images: [
+        "images/completed-interior.jpeg",
+      ]
+    },
+    {
+      id: 4,
       client: "Mr. Durairaj",
       title: "Mr. Durairaj Residence",
       location: "Polichalur, Chennai",
