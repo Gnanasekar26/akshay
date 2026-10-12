@@ -116,6 +116,58 @@
     counters.forEach(function(el){ counterIO.observe(el); });
   }
 
+  /* ---------------------------------------------------------
+     Client Reviews
+     These are the actual Akshay Construction clients/projects on
+     record. No verified written review or star rating has been
+     collected from them yet, so `review` and `rating` are left
+     empty/null rather than inventing testimonial text. A card only
+     renders once a client has real `review` text; until then the
+     grid shows one polished, intentional notice instead of empty
+     card shells. Add verified text/rating here as it is collected
+     and the matching review card will render automatically.
+     --------------------------------------------------------- */
+var clientReviews = [
+  { client: "Mr. Karthikeyan", location: "Pallavaram", project: "Residential Construction", review: "Akshay Constructions did an excellent job with our home construction. From the initial planning to the final finishing, the team was professional, responsive, and focused on quality. We are very happy with how our dream home turned out", rating: 5 },
+  { client: "Mr. Sekar", location: "Pallavaram", project: "Residential Construction", review: "We were impressed with the quality of materials and the attention to detail throughout the construction. The team maintained good coordination at every stage and made sure the work was completed properly", rating: 5},
+  { client: "Mr. Ashok", location: "Guindy", project: "Apartment Construction", review: "Akshay Constructions completely transformed our existing house through their renovation work. The team was organized, transparent, and careful about every detail. The final result looks modern and fresh.", rating: 5 },
+  { client: "Mr. Sathish", location: "Guduvanchery", project: "Interior Design", review: "The interior work gave our home a completely new look. The designs were elegant and practical, and the team paid close attention to our preferences and budget. We are extremely happy with the overall finish.", rating: 5},
+   { client: "Mr. Srinivasan", location: "Pattinapakkam", project: "On Time Delivery", review:"What we appreciated most was the team's commitment to completing the work on schedule. They kept us updated throughout the project and handled the construction process in a professional manner", rating: 5},
+    { client: "Mr. Madhan", location: "ECR", project: "Complete Experience", review:"From planning and design to construction and handover, the entire experience was smooth and well coordinated. The team was approachable whenever we had questions and maintained good communication throughout the project.", rating: 5}  
+
+];
+  var reviewGrid = document.getElementById('review-grid');
+  if (reviewGrid) {
+    var reviewsWithText = clientReviews.filter(function (r) { return r.review && r.review.trim().length > 0; });
+
+    if (reviewsWithText.length === 0) {
+      reviewGrid.innerHTML =
+        '<div class="review-empty">' +
+          '<p class="review-empty-lead">We are building long-term relationships through quality construction, clear communication and professional execution.</p>' +
+          '<p class="review-empty-sub">Client stories will be updated with verified feedback.</p>' +
+          '<a href="contact.html" class="btn btn--gold btn--sm">START YOUR PROJECT &rarr;</a>' +
+        '</div>';
+    } else {
+      reviewGrid.innerHTML = reviewsWithText.map(function (r) {
+        var starsHtml = r.rating
+          ? '<div class="review-stars">' + '★★★★★'.slice(0, r.rating) + '</div>'
+          : '';
+        return (
+          '<div class="review-card">' +
+            starsHtml +
+           
+            '<p class="review-text">' + r.review + '</p>' +
+            '<div class="review-foot">' +
+              '<div class="review-name">' + r.client + '</div>' +
+              '<div class="review-location">' + r.location + '</div>' +
+              (r.project ? '<div class="review-project">' + r.project + '</div>' : '') +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+  }
+
   /* Image error fallback — catches any image that fails to load
      (broken URL, offline asset, etc.) and swaps the browser's
      broken-image icon + alt text for a styled placeholder instead

@@ -136,17 +136,23 @@
 @media (max-width: 760px){ .mv-grid{ grid-template-columns:1fr; } }
 
 /* ---- From Idea to Industry ---- */
-.idea-track{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
-  gap:22px;
+/* Deliberate 4 + 3 composition (7 steps): two row wrappers so the
+   bottom row's 3 cards center under the top row instead of the last
+   card being isolated alone with a large empty area beside it. */
+.idea-row{ display:grid; gap:22px; }
+.idea-row-top{ grid-template-columns:repeat(4, 1fr); }
+.idea-row-bottom{
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  max-width:75%;
+  margin:22px auto 0;
 }
 .idea-step{
   text-align:left;
-  padding:24px 20px;
+  padding:32px;
   background:#fff;
   border:1px solid var(--line);
   position:relative;
+  min-height:230px;
 }
 .idea-step .idea-num{
   font-family:var(--font-display);
@@ -158,3 +164,147 @@
 }
 .idea-step h3{ font-size:0.98rem; margin-bottom:8px; }
 .idea-step p{ color:var(--ink-soft); font-size:0.85rem; }
+
+/* From Idea to Industry — tablet keeps 4/3 proportion at 2 columns
+   each so no card is ever isolated alone; mobile stacks one column. */
+@media (max-width: 1024px) and (min-width: 768px){
+  .idea-row-top{ grid-template-columns:repeat(2, 1fr); }
+  .idea-row-bottom{ grid-template-columns:repeat(2, 1fr); max-width:100%; }
+  .idea-row-bottom .idea-step:last-child{ grid-column:1 / -1; }
+}
+@media (max-width: 767px){
+  .idea-row-top, .idea-row-bottom{ grid-template-columns:1fr; max-width:100%; margin-top:16px; }
+  .idea-step{ min-height:auto; padding:26px 22px; }
+}
+
+/* Core Values — 3 + 2 centered composition, mirroring Why Choose Us. */
+.values-row{ display:grid; gap:44px 40px; }
+.values-row-top{ grid-template-columns:repeat(3, 1fr); }
+.values-row-bottom{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  max-width:66.6667%;
+  margin:44px auto 0;
+}
+@media (max-width: 1024px) and (min-width: 768px){
+  .values-row-bottom{ max-width:100%; }
+}
+@media (max-width: 767px){
+  .values-row-top, .values-row-bottom{ grid-template-columns:1fr; gap:18px; max-width:100%; margin-top:8px; }
+  .value-card{ padding:28px 24px; }
+}
+
+
+/* ================= LEADERSHIP TEAM ================= */
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 45px;
+}
+
+.leader-card {
+  background: var(--white, #ffffff);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.leader-image {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.leader-info {
+  padding: 28px;
+}
+
+.leader-info h3 {
+  margin: 12px 0 8px;
+  font-size: 1.45rem;
+}
+
+.leader-role {
+  color: var(--accent, #c89535);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.leader-info > p:not(.leader-role) {
+  color: var(--ink-soft, #666666);
+  line-height: 1.8;
+}
+
+.leader-experience {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.leader-experience span {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f5f0e7;
+  color: #72551f;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Tablet and mobile responsive design */
+@media (max-width: 768px) {
+  .leadership-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .leader-image {
+    height: 320px;
+  }
+
+  .leader-info {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .leader-image {
+    height: 280px;
+  }
+
+  .leader-info h3 {
+    font-size: 1.25rem;
+  }
+}
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .leader-image {
+    height: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .leader-image {
+    height: 320px;
+  }
+}

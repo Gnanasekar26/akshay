@@ -30,7 +30,7 @@
   --font-body:'Inter', sans-serif;
 
   /* ---- Layout ---- */
-  --container:1200px;
+  --container:1320px;
   --radius-s:4px;
   --radius-m:8px;
   --nav-h:84px;
@@ -54,11 +54,18 @@ ul{ list-style:none; margin:0; padding:0; }
 button{ font-family:inherit; cursor:pointer; }
 input,textarea,select{ font-family:inherit; font-size:1rem; }
 
+/* Global alignment system: every section shares this one container so
+   content width, left/right margins and heading widths line up across
+   the whole site (Client Stories, Career, Process, Values, Why Us…). */
 .container{
-  width:100%;
-  max-width:var(--container);
-  margin:0 auto;
-  padding:0 28px;
+  width:min(100% - 120px, var(--container));
+  margin-inline:auto;
+}
+@media (max-width: 1024px){
+  .container{ width:min(100% - 64px, 1200px); }
+}
+@media (max-width: 767px){
+  .container{ width:min(100% - 32px, 1200px); }
 }
 
 h1,h2,h3,h4{
@@ -108,22 +115,24 @@ p{ margin:0; }
 }
 .tag.on-dark{ color:var(--gold-light); }
 
-.section{ padding:96px 0; }
-.section--tight{ padding:64px 0; }
+.section{ padding-block:100px; }
+.section--tight{ padding-block:64px; }
 .section--dark{ background:var(--navy-900); color:var(--off-white); }
 .section--dark h2, .section--dark h3{ color:var(--off-white); }
 .section--alt{ background:var(--off-white); }
 
-/* Mobile spacing audit: content sections use generous desktop padding
-   (90-96px) that reads as excessive on small screens. Scale it down
-   consistently instead of relying on the desktop rhythm everywhere. */
+/* Consistent vertical rhythm across the whole site — desktop / tablet / mobile. */
+@media (max-width: 1024px){
+  .section{ padding-block:80px; }
+  .section--tight{ padding-block:52px; }
+}
 @media (max-width: 767px){
-  .section{ padding:56px 0; }
-  .section--tight{ padding:40px 0; }
+  .section{ padding-block:60px; }
+  .section--tight{ padding-block:40px; }
   .section-head{ margin-bottom:32px; }
   .page-hero{ padding:calc(var(--nav-h) + 40px) 0 44px; }
-  .pricing-cta{ padding:56px 0; }
-  .final-cta{ padding:52px 0; }
+  .pricing-cta{ padding-block:56px; }
+  .final-cta{ padding-block:52px; }
 }
 
 .section-head{
@@ -213,7 +222,6 @@ p{ margin:0; }
   display:flex;
   align-items:center;
   justify-content:space-between;
-  width:100%;
 }
 .navbar.is-scrolled{
   background:var(--navy-900);
@@ -224,10 +232,17 @@ p{ margin:0; }
    so keep the bar solid from the start on those pages */
 .navbar.is-solid{ background:var(--navy-900); }
 
+.brand-logo{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  flex-shrink:0;
+}
 .brand{
   display:flex;
   align-items:center;
   gap:10px;
+  flex-shrink:0;
   font-family:var(--font-head);
   font-weight:700;
   font-size:1.15rem;
@@ -257,6 +272,8 @@ p{ margin:0; }
   display:flex;
   align-items:center;
   gap:38px;
+  flex-shrink:0;
+  white-space:nowrap;
 }
 .nav-links a{
   font-family:var(--font-head);
@@ -279,7 +296,7 @@ p{ margin:0; }
 .nav-links a.active::after{ width:100%; }
 .nav-links a.active{ color:var(--gold-light); }
 
-.nav-cta{ display:flex; align-items:center; gap:14px; }
+.nav-cta{ display:flex; align-items:center; gap:14px; flex-shrink:0; white-space:nowrap; }
 
 .hamburger{
   display:none;
@@ -359,6 +376,8 @@ p{ margin:0; }
   padding:calc(var(--nav-h) + 70px) 0 70px;
   position:relative;
   overflow:hidden;
+  background-size:cover;
+  background-position:center;
 }
 .page-hero::after{
   content:'';
@@ -367,6 +386,19 @@ p{ margin:0; }
   width:260px; height:260px;
   border:1px solid rgba(216,167,92,0.25);
   border-radius:50%;
+}
+.page-hero::before{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(100deg, rgba(7,26,51,0.92) 0%, rgba(7,26,51,0.8) 55%, rgba(7,26,51,0.62) 100%);
+  z-index:0;
+}
+.page-hero .container{ position:relative; z-index:1; }
+.page-hero h1,
+.page-hero .tag,
+.page-hero .breadcrumb,
+.page-hero .breadcrumb a{
+  color:#fff;
 }
 .breadcrumb{
   font-family:var(--font-head);
@@ -845,23 +877,149 @@ p{ margin:0; }
 }
 
 /* ---------------------------------------------------------
-   Client Values — editorial numbered grid (shared, Home page)
-   5 items on a 3-column grid: row 2 naturally leaves one cell
-   empty (col 3), but because each item is plain text on a thin
-   top rule — not a bordered card — that space simply reads as
-   breathing room, never as an accidental empty box.
+   Client Reviews — real-review-ready grid + empty state.
+   Populated from `clientReviews` in js/global.js. When that array
+   is empty (no verified reviews supplied yet) a tasteful notice is
+   shown instead of fabricated testimonials.
    --------------------------------------------------------- */
-.values-grid{
+.review-grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
-  gap:44px 40px;
-  margin-top:8px;
+  gap:28px;
 }
+.review-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:32px 30px;
+  box-shadow:0 12px 30px rgba(15,26,43,0.06);
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.review-stars{
+  color:var(--gold);
+  letter-spacing:2px;
+  font-size:0.95rem;
+  margin-bottom:18px;
+}
+.review-mark{
+  font-family:var(--font-display);
+  font-size:2.6rem;
+  line-height:1;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+.review-text{
+  color:var(--ink);
+  font-size:1rem;
+  line-height:1.7;
+  flex:1;
+  margin-bottom:22px;
+}
+.review-foot{
+  border-top:1px solid var(--line);
+  padding-top:16px;
+}
+.review-name{
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:0.92rem;
+  color:var(--navy-900);
+  letter-spacing:0.02em;
+}
+.review-location{ color:var(--ink-soft); font-size:0.85rem; margin-top:2px; }
+
+.review-empty{
+  grid-column:1 / -1;
+  text-align:center;
+  padding:56px 40px;
+  border:1px dashed var(--line);
+  border-radius:14px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+}
+.review-empty-lead{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1.2rem;
+  color:var(--ink-soft);
+  max-width:560px;
+  line-height:1.6;
+}
+.review-empty-sub{
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  margin-bottom:6px;
+}
+.review-project{ color:var(--ink-soft); font-size:0.78rem; margin-top:4px; text-transform:uppercase; letter-spacing:0.04em; }
+
+@media (min-width: 768px) and (max-width: 1024px){
+  .review-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width: 767px){
+  .review-grid{ grid-template-columns:1fr; }
+}
+
+/* ---------------------------------------------------------
+   Career CTA — premium navy/gold split panel
+   --------------------------------------------------------- */
+.career-cta{ background:var(--navy-900); border-top:2px solid var(--gold); }
+.career-cta-inner{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  border:1px solid rgba(255,255,255,0.14);
+  min-height:360px;
+}
+.career-cta-text{
+  padding:64px 60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.career-cta-text .tag{ color:var(--gold); }
+.career-cta-text h2{ color:#fff; margin-bottom:16px; }
+.career-cta-text p{ color:#C7CDD9; font-size:1.05rem; margin-bottom:28px; max-width:440px; }
+.career-cta-visual{
+  position:relative;
+  background:linear-gradient(160deg, var(--navy-800), var(--navy-900));
+  border-left:1px solid rgba(255,255,255,0.14);
+  min-height:280px;
+  overflow:hidden;
+}
+.career-cta-visual svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+@media (max-width: 1024px){
+  .career-cta-text{ padding:52px 44px; }
+}
+@media (max-width: 767px){
+  .career-cta-inner{ grid-template-columns:1fr; min-height:auto; }
+  .career-cta-visual{ min-height:200px; border-left:none; border-bottom:1px solid rgba(255,255,255,0.14); order:-1; }
+  .career-cta-text{ padding:40px 28px; text-align:left; }
+  .career-cta-text .btn-row{ justify-content:flex-start; }
+}
+
+/* ---------------------------------------------------------
+   Value card — used by the Core Values section (about.html),
+   rendered inside .values-row-top / .values-row-bottom (see
+   css/about.css for the 3+2 grid wrappers). Full bordered card
+   with a subtle hover lift, rather than plain text on a rule,
+   so the section reads as premium rather than empty.
+   --------------------------------------------------------- */
 .value-card{
   text-align:left;
-  padding-top:26px;
-  background:transparent;
-  border-top:1px solid var(--line);
+  padding:34px 30px;
+  background:#fff;
+  border:1px solid var(--line);
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.value-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  box-shadow:0 16px 34px rgba(15,26,43,0.08);
 }
 .value-num{
   display:block;
@@ -885,12 +1043,6 @@ p{ margin:0; }
   margin-bottom:10px;
 }
 .value-card p{ color:var(--ink-soft); font-size:0.9rem; line-height:1.6; }
-
-@media (max-width: 767px){
-  .values-grid{ grid-template-columns:1fr; gap:0; margin-top:16px; }
-  .value-card{ padding-block:24px; border-top:1px solid var(--line); }
-  .value-card:first-child{ border-top:none; padding-top:0; }
-}
 
 :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 

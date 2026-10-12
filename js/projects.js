@@ -20,6 +20,18 @@
   var PROJECTS = [
     {
       id: 1,
+      client: "Mr. Sekar",
+      title: "Mr. Sekar Villa",
+      location: "Pallavaram, Chennai",
+      address: "",
+      category: "Villa Construction",
+      status: "completed",
+      images: [
+        "images/completed project.jpeg",
+      ]
+    },
+    {
+      id: 2,
       client: "Mr. Karthikeyan",
       title: "Mr. Karthikeyan Residence",
       location: "Pallavaram, Chennai",
@@ -27,34 +39,31 @@
       category: "Residential Construction",
       status: "completed",
       images: [
-        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1200&auto=format&fit=crop"
-      ]
-    },
-    {
-      id: 2,
-      client: "Mr. Sekar",
-      title: "Mr. Sekar Residence",
-      location: "Pallavaram, Chennai",
-      address: "",
-      category: "Residential Construction",
-      status: "completed",
-      images: [
-        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
+        "images/completed-individual-house-01.png",
       ]
     },
     {
       id: 3,
+      client: "Mr. Srinivasan",
+      title: "Mr. Srinivasan Residence",
+      location: "Guindy, Chennai",
+      address: "",
+      category: "Residential Construction",
+      status: "completed",
+      images: [
+        "images/completed-interior.jpeg",
+      ]
+    },
+    {
+      id: 4,
       client: "Mr. Durairaj",
-      title: "Mr. Durairaj Residence",
+      title: "Mr. Durairaj Villa",
       location: "Polichalur, Chennai",
       address: "Manimegalai Street",
-      category: "Residential Construction",
+      category: "Villa Construction",
       status: "ongoing",
       images: [
-        "https://images.unsplash.com/photo-1541976590-713941681591?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop"
+        "images/ongoing project.jpeg",
       ]
     }
   ];

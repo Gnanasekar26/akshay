@@ -19,9 +19,9 @@
   grid-template-columns:1.15fr 0.85fr;
   gap:40px;
   align-items:end;
-  width:100%;
   padding-bottom:64px;
 }
+
 .hero-copy{ max-width:640px; }
 .hero-copy h1{ color:#fff; margin-bottom:20px; }
 .hero-copy .lede{
@@ -166,21 +166,27 @@
 @media (max-width: 960px){ .projects-preview-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width: 620px){ .projects-preview-grid{ grid-template-columns:1fr; } }
 
-/* ---- Why choose us ---- */
-/* 5 items on a 3-column grid: the 5th card intentionally spans the
-   remaining two columns of row 2 so there is never an empty cell. */
-.why-grid{
+/* ---- Why choose us ----
+   5 items as a deliberate 3 + 2 composition: two separate row
+   wrappers so the bottom row's 2 cards are centered and match the
+   top row's card width exactly — never a wide/stretched card. */
+.why-row{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
   gap:1px;
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(255,255,255,0.1);
 }
+.why-row-top{ grid-template-columns:repeat(3, 1fr); }
+.why-row-bottom{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  max-width:66.6667%;
+  margin:1px auto 0;
+}
 .why-card{
   background:var(--navy-900);
-  padding:44px 36px;
+  padding:42px 36px;
+  min-height:230px;
 }
-.why-card--wide{ grid-column:span 2; }
 .why-num{
   font-family:var(--font-head);
   font-size:0.85rem;
@@ -193,18 +199,148 @@
 .why-card h3{ color:#fff; margin-bottom:10px; font-size:1.1rem; }
 .why-card p{ color:#B9C0CC; font-size:0.92rem; }
 
-/* Tablet: 2 columns. The wide card now spans the full width so it
-   still never leaves a stray empty cell. */
-@media (max-width: 900px) and (min-width: 768px){
-  .why-grid{ grid-template-columns:1fr 1fr; }
-  .why-card--wide{ grid-column:1 / -1; }
+/* Tablet: keep 3 columns on top (narrower cards, never an isolated
+   lone card) with the bottom row centered proportionally the same. */
+@media (max-width: 1024px) and (min-width: 768px){
+  .why-card{ padding:34px 24px; }
 }
 
 /* Mobile: single column, purpose-built — not a squeezed desktop grid. */
 @media (max-width: 767px){
-  .why-grid{ grid-template-columns:1fr; }
-  .why-card--wide{ grid-column:auto; }
+  .why-row-top, .why-row-bottom{ grid-template-columns:1fr; max-width:100%; }
   .why-card{ width:100%; min-height:auto; height:auto; padding:30px 24px; }
 }
 
+/* ---- Stat cards (compact) ---- */
+.experience-strip{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:16px;
+  border:none;
+}
+.experience-item{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-top:3px solid var(--gold);
+  border-radius:14px;
+  padding:20px 18px;
+  text-align:left;
+}
+.experience-item .num{
+  display:block;
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:clamp(1.5rem,2.4vw,2rem);
+  color:#fff;
+  margin-bottom:6px;
+  line-height:1.1;
+}
+.experience-item .label{
+  color:#B9C0CC;
+  font-size:0.85rem;
+  line-height:1.35;
+}
 
+@media (max-width: 1024px){
+  .experience-strip{ grid-template-columns:repeat(3, 1fr); }
+}
+@media (max-width: 600px){
+  .experience-strip{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+  .experience-item{ padding:16px 14px; }
+}
+/* ---- Leadership ---- */
+.leaders-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:32px;
+  max-width:980px;
+  margin:0 auto;
+}
+.leader-card{
+  background:#fff;
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.leader-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(15,26,43,0.12);
+}
+.leader-photo{
+  position:relative;
+  height:420px;
+  background:#f4f4f4;
+  overflow:hidden;
+}
+.leader-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+}
+.leader-badge{
+  position:absolute;
+  left:0; bottom:0;
+  background:var(--navy-900);
+  color:#fff;
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:0.8rem;
+  letter-spacing:0.04em;
+  padding:12px 18px;
+  border-left:3px solid var(--gold);
+}
+.leader-body{ padding:28px 28px 32px; }
+.leader-body h3{ margin:12px 0 6px; font-size:1.5rem; }
+.leader-role{
+  color:var(--gold);
+  font-family:var(--font-head);
+  font-weight:600;
+  margin-bottom:12px;
+}
+.leader-desc{
+  color:var(--ink-soft);
+  font-size:0.98rem;
+  line-height:1.65;
+  overflow-wrap:break-word;
+}
+
+@media (max-width: 800px){
+  .leaders-grid{ grid-template-columns:1fr; }
+  .leader-photo{ height:360px; }
+}
+/* ---- Approvals ---- */
+.approvals-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:26px;
+  max-width:860px;
+  margin:0 auto;
+}
+.approval-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-top:3px solid var(--gold);
+  padding:30px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.approval-badge{
+  align-self:flex-start;
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:0.95rem;
+  letter-spacing:0.08em;
+  color:var(--gold);
+  border:1px solid var(--gold);
+  padding:8px 16px;
+  margin-bottom:8px;
+}
+.approval-card h3{ margin:0; }
+.approval-card p{ color:var(--ink-soft); font-size:0.94rem; margin:0; }
+
+@media (max-width: 700px){
+  .approvals-grid{ grid-template-columns:1fr; }
+}
